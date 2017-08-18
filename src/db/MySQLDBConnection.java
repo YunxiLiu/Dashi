@@ -51,6 +51,7 @@ public class MySQLDBConnection implements DBConnection {
 
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject object = array.getJSONObject(i);
+				System.out.println(object);
 				Restaurant restaurant = new Restaurant(object);
 				String businessId = restaurant.getBusinessId();
 				String name = restaurant.getName();
@@ -58,9 +59,9 @@ public class MySQLDBConnection implements DBConnection {
 				String city = restaurant.getCity();
 				String state = restaurant.getState();
 				String fullAddress = restaurant.getFullAddress();
-				double stars = restaurant.getStars();
-				double latitude = restaurant.getLatitude();
-				double longitude = restaurant.getLongitude();
+				Double stars = restaurant.getStars();
+				Double latitude = restaurant.getLatitude();
+				Double longitude = restaurant.getLongitude();
 				String imageUrl = restaurant.getImageUrl();
 				String url = restaurant.getUrl();
 				JSONObject obj = restaurant.toJSONObject();
@@ -68,6 +69,13 @@ public class MySQLDBConnection implements DBConnection {
 					obj.put("is_visited", true);
 				} else {
 					obj.put("is_visited", false);
+				}
+				
+				if (latitude == null) {
+					latitude = 0.0;
+				}
+				if (longitude == null) {
+					longitude = 0.0;
 				}
 				String sql = "INSERT IGNORE INTO restaurants VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 				PreparedStatement statement = conn.prepareStatement(sql);

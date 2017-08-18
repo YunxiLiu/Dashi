@@ -46,9 +46,9 @@ public class Restaurant {
     private String city;
     private String state;
     private String fullAddress;
-    private double stars;
-    private double latitude;
-    private double longitude;
+    private Double stars;
+    private Double latitude;
+    private Double longitude;
     private String imageUrl;
     private String url;
     
@@ -67,8 +67,12 @@ public class Restaurant {
    			this.imageUrl = object.getString("image_url");
    			this.stars = object.getDouble("rating");
    			JSONObject coordinates = (JSONObject) object.get("coordinates");
-   			this.latitude = coordinates.getDouble("latitude");
-   			this.longitude = coordinates.getDouble("longitude");
+   			if (coordinates.getString("latitude") != "null") {
+   				this.latitude = coordinates.getDouble("latitude");
+   			}
+   			if (coordinates.getString("longitude") != "null") {
+   				this.longitude = coordinates.getDouble("longitude");
+   			}
    			JSONObject location = (JSONObject) object.get("location");
    			this.city = location.getString("city");
    			this.state = location.getString("state");
@@ -152,22 +156,22 @@ public class Restaurant {
 	public void setFullAddress(String fullAddress) {
 		this.fullAddress = fullAddress;
 	}
-	public double getStars() {
+	public Double getStars() {
 		return stars;
 	}
-	public void setStars(double stars) {
+	public void setStars(Double stars) {
 		this.stars = stars;
 	}
-	public double getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(double latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
-	public double getLongitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(double longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 	public String getImageUrl() {
